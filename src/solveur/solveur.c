@@ -11,7 +11,7 @@
 #define MAX_STATES 	1000000
 #define MAX_TRY 	10000
 
-#define DEBUG 0
+#define DEBUG 0 //Si DEBUG == 1, affiche des information sur l'exéctution de l'algorithme
 
 bool streq(char* s1, char* s2) {
 	int 	i = 1;
@@ -64,8 +64,7 @@ int solve(game g, int size_x, int size_y, int nb_pieces, piece* pieces, int rule
 	int try = 0;
 	game *prevState;
 	game *currState;
-	while (try++ > MAX_TRY || !over){
-		printf("%d\n",try);
+	while (try++ < MAX_TRY && !over){
 		if (DEBUG == 1) printf("nb_states : %d", nb_states);
 		//On alterne l'utilisation des tableau, une fois sur deux avec le -1/1
 		skip = -skip;
@@ -162,7 +161,7 @@ int main(int argc, char* argv[]){
         printf("Impossible d'ouvrir %s", argv[2]);
     }
 	g = new_game(size_x, size_y, nb_pieces, pieces);
-	if (solve(g, size_x, size_y, nb_pieces, pieces, rules) == 0) printf("%d",game_nb_moves(g));
-	else printf("-1");
+	if (solve(g, size_x, size_y, nb_pieces, pieces, rules) == 0) printf("%d\n",game_nb_moves(g));
+	else printf("-1\n");
 	return EXIT_SUCCESS;
 }
